@@ -68,8 +68,8 @@ describe package('nodejs') do
   it { should be_installed }
 end
 
-describe command('coffee -v') do
-  it { should return_stdout /CoffeeScript version 1/ }
+describe package('coffee-script') do
+  it { should be_installed.by('npm') }
 end
 
 #
@@ -147,6 +147,6 @@ describe file('/home/vagrant/fuel-dbdocs/public/dbdocs') do
 end
 
 describe file('/var/www/dbdocs') do
-  it {should be_linked_to '/home/vagrant/fuel-dbdocs/public'}
+  it { should be_linked_to '/home/vagrant/fuel-dbdocs/public' }
 end
 
