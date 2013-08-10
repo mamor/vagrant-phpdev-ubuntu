@@ -22,22 +22,6 @@ end
 #
 # install php and apache
 #
-apt_repository 'php5' do
-	uri 'http://ppa.launchpad.net/ondrej/php5/ubuntu'
-	distribution node['lsb']['codename']
-	components ['main']
-	keyserver 'keyserver.ubuntu.com'
-	key 'E5267A6C'
-end
-
-apt_repository 'apache2' do
-	uri 'http://ppa.launchpad.net/ondrej/apache2/ubuntu'
-	distribution node['lsb']['codename']
-	components ['main']
-	keyserver 'keyserver.ubuntu.com'
-	key 'E5267A6C'
-end
-
 %w{php5 php5-mysqlnd}.each do |p|
 	package p do
 		action :install
@@ -60,7 +44,7 @@ end
 template '/etc/php5/cli/php.ini' do
 end
 
-template '/etc/apache2/apache2.conf' do
+template '/etc/apache2/sites-available/default' do
 	notifies :reload, 'service[apache2]'
 end
 
@@ -122,6 +106,41 @@ end
 # install packages by gem
 #
 %w{fluentd jsduck serverspec}.each do |p|
+	rbenv_gem p do
+		action :install
+	end
+end
+
+#
+# install passenger and rails
+#
+rbenv_gem 'passenger' do
+	action :install
+	notifies :run, 'execute[passenger]'
+end
+
+%w{libcurl4-openssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev}.each do |p|
+	package p do
+		action :install
+	end
+end
+
+execute 'passenger' do
+	action :nothing
+	command '
+		dd if=/dev/zero of=/swapfile bs=1024 count=512k;
+		mkswap /swapfile;
+		swapon /swapfile;
+		passenger-install-apache2-module -a;
+		swapoff /swapfile;
+	'
+end
+
+package 'libmysqlclient-dev' do
+	action :install
+end
+
+%w{rails mysql2}.each do |p|
 	rbenv_gem p do
 		action :install
 	end

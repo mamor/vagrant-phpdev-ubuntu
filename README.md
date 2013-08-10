@@ -2,8 +2,8 @@
 
 ## Features
 
-* PHP 5.5 http://php.net/
-* Apache 2.4 http://www.apache.org/
+* PHP 5.4 http://php.net/
+* Apache 2.2 http://www.apache.org/
 * MySQL 5.5 http://www.mysql.com/
 * phpMyAdmin http://www.phpmyadmin.net/ http://localhost:8080/phpmyadmin/ (root/root)
 * DBDocs https://github.com/mp-php/fuel-dbdocs http://localhost:8080/dbdocs/
@@ -16,6 +16,9 @@
 * Fluentd http://fluentd.org/
 * MongoDB http://www.mongodb.org/
 * Redis http://redis.io/
+* serverspec http://serverspec.org/
+* passenger
+* Ruby on Rails
 
 ## Usage
 
