@@ -17,8 +17,8 @@
 * MongoDB http://www.mongodb.org/
 * Redis http://redis.io/
 * serverspec http://serverspec.org/
-* passenger
-* Ruby on Rails
+* Phusion Passenger https://www.phusionpassenger.com/
+* Ruby on Rails http://rubyonrails.org/
 
 ## Usage
 
