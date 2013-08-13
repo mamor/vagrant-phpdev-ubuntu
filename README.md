@@ -26,7 +26,7 @@
 
 	$ git clone --recursive https://github.com/mp-php/vagrant-phpdev-ubuntu.git
 	$ cd vagrant-phpdev-ubuntu/
-	$ vagrant up # Please wait a few minutes
+	$ vagrant up # this could take a while...
 
 ### Make Project
 

@@ -17,6 +17,7 @@ end
 
 execute 'apt-get' do
 	command 'apt-get update'
+	command 'apt-get upgrade -y'
 end
 
 #
@@ -37,17 +38,6 @@ service 'apache2' do
 	action [:enable, :reload]
 end
 
-template '/etc/php5/apache2/php.ini' do
-	notifies :reload, 'service[apache2]'
-end
-
-template '/etc/php5/cli/php.ini' do
-end
-
-template '/etc/apache2/sites-available/default' do
-	notifies :reload, 'service[apache2]'
-end
-
 #
 # install mysql
 #
@@ -64,7 +54,7 @@ end
 #
 # install packages by apt-get
 #
-%w{git mongodb redis-server phpmyadmin}.each do |p|
+%w{mongodb redis-server phpmyadmin}.each do |p|
 	package p do
 		action :install
 	end
@@ -102,6 +92,13 @@ end
 	end
 end
 
+rbenv_ruby '2.0.0-p247' do
+	action :install
+end
+
+rbenv_global '2.0.0-p247' do
+end
+
 #
 # install packages by gem
 #
@@ -116,7 +113,7 @@ end
 #
 rbenv_gem 'passenger' do
 	action :install
-	notifies :run, 'execute[passenger]'
+	version '4.0.10'
 end
 
 %w{libcurl4-openssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev}.each do |p|
@@ -125,16 +122,18 @@ end
 	end
 end
 
-execute 'passenger' do
-	action :nothing
-	command '
-		dd if=/dev/zero of=/swapfile bs=1024 count=512k;
-		mkswap /swapfile;
-		swapon /swapfile;
-		passenger-install-apache2-module -a;
-		swapoff /swapfile;
-	'
+=begin
+rbenv_script 'passenger' do
+	code <<-CODE
+		dd if=/dev/zero of=/swap bs=1M count=1024;
+		mkswap /swap;
+		swapon /swap;
+		passenger-install-apache2-module --auto;
+		swapoff /swap;
+	CODE
+	not_if {File.exists?('/usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so')}
 end
+=end
 
 package 'libmysqlclient-dev' do
 	action :install
@@ -144,6 +143,20 @@ end
 	rbenv_gem p do
 		action :install
 	end
+end
+
+#
+# templates
+#
+template '/etc/php5/apache2/php.ini' do
+	notifies :reload, 'service[apache2]'
+end
+
+template '/etc/php5/cli/php.ini' do
+end
+
+template '/etc/apache2/sites-available/default' do
+	notifies :reload, 'service[apache2]'
 end
 
 #
