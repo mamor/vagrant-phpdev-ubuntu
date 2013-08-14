@@ -17,7 +17,6 @@ end
 
 execute 'apt-get' do
 	command 'apt-get update'
-	command 'apt-get upgrade -y'
 end
 
 #
@@ -122,18 +121,20 @@ end
 	end
 end
 
-=begin
 rbenv_script 'passenger' do
-	code <<-CODE
-		dd if=/dev/zero of=/swap bs=1M count=1024;
-		mkswap /swap;
-		swapon /swap;
-		passenger-install-apache2-module --auto;
-		swapoff /swap;
-	CODE
+	code <<-CMD
+		dd if=/dev/zero of=/swap bs=1M count=1024
+		mkswap /swap
+		swapon /swap
+		passenger-install-apache2-module -a
+		swapoff /swap
+	CMD
 	not_if {File.exists?('/usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so')}
 end
-=end
+
+template '/etc/apache2/conf.d/passenger.conf' do
+	notifies :reload, 'service[apache2]'
+end
 
 package 'libmysqlclient-dev' do
 	action :install
