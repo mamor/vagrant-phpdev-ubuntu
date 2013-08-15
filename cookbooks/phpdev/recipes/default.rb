@@ -85,7 +85,7 @@ package 'nodejs' do
 	action :install
 end
 
-%w{coffee-script grunt-cli}.each do |p|
+%w{coffee-script jshint grunt-cli}.each do |p|
 	execute p do
 		command 'npm install -g ' + p
 	end
