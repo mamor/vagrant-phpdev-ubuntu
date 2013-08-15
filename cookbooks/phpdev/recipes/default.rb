@@ -85,7 +85,7 @@ package 'nodejs' do
 	action :install
 end
 
-%w{coffee-script}.each do |p|
+%w{coffee-script grunt-cli}.each do |p|
 	execute p do
 		command 'npm install -g ' + p
 	end
@@ -101,7 +101,7 @@ end
 #
 # install packages by gem
 #
-%w{fluentd jsduck serverspec}.each do |p|
+%w{fluentd jsduck serverspec compass}.each do |p|
 	rbenv_gem p do
 		action :install
 	end
