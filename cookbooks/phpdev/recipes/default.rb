@@ -59,11 +59,15 @@ end
 	end
 end
 
-execute 'git' do
-	command '
-		git config --global user.email "' + node['git']['user']['email'] + '"
-		git config --global user.name "' + node['git']['user']['name'] + '"
-	'
+#
+# git settings
+#
+execute 'git-config-user-email' do
+	command "sudo -u vagrant -H git config --global user.email \"#{node['git']['user']['email']}\""
+end
+
+execute 'git-config-user-name' do
+	command "sudo -u vagrant -H git config --global user.name \"#{node['git']['user']['name']}\""
 end
  
 link '/var/www/phpmyadmin' do
