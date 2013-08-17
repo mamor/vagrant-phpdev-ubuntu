@@ -59,6 +59,10 @@ end
 	end
 end
 
+link '/var/www/phpmyadmin' do
+	to '/usr/share/phpmyadmin'
+end
+
 #
 # git settings
 #
@@ -70,10 +74,6 @@ execute 'git-config-user-name' do
 	command "sudo -u vagrant -H git config --global user.name \"#{node['git']['user']['name']}\""
 end
  
-link '/var/www/phpmyadmin' do
-	to '/usr/share/phpmyadmin'
-end
-
 #
 # install packages by npm
 #
