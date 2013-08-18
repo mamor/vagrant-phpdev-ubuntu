@@ -28,13 +28,13 @@ end
 	end
 end
 
-execute 'a2enmod' do
-	command 'a2enmod rewrite'
-end
-
 service 'apache2' do
 	supports :status => true, :restart => true, :reload => true
-	action [:enable, :reload]
+	action [:enable, :start]
+end
+
+execute 'a2enmod' do
+	command 'a2enmod rewrite' # apache will be restarted by template
 end
 
 #
@@ -43,11 +43,22 @@ end
 package 'mysql-server' do
 	action :install
 	notifies :run, 'execute[mysqladmin]'
+	notifies :run, 'execute[mysql]'
+end
+
+service 'mysql' do
+	supports :status => true, :restart => true, :reload => true
+	action [:enable, :start]
 end
 
 execute 'mysqladmin' do
 	action :nothing
 	command 'mysqladmin password -u root ' + node['mysql']['password']
+end
+
+execute 'mysql' do
+	action :nothing
+	command "mysql -u root -p#{node['mysql']['password']} -e \"GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY '#{node['mysql']['password']}' WITH GRANT OPTION\""
 end
 
 #
@@ -95,6 +106,9 @@ end
 	end
 end
 
+#
+# install packages by gem
+#
 rbenv_ruby '2.0.0-p247' do
 	action :install
 end
@@ -102,9 +116,6 @@ end
 rbenv_global '2.0.0-p247' do
 end
 
-#
-# install packages by gem
-#
 %w{fluentd jsduck serverspec compass}.each do |p|
 	rbenv_gem p do
 		action :install
@@ -137,7 +148,7 @@ rbenv_script 'passenger' do
 end
 
 template '/etc/apache2/conf.d/passenger.conf' do
-	notifies :reload, 'service[apache2]'
+	notifies :restart, 'service[apache2]'
 end
 
 package 'libmysqlclient-dev' do
@@ -154,14 +165,18 @@ end
 # templates
 #
 template '/etc/php5/apache2/php.ini' do
-	notifies :reload, 'service[apache2]'
+	notifies :restart, 'service[apache2]'
 end
 
 template '/etc/php5/cli/php.ini' do
 end
 
 template '/etc/apache2/sites-available/default' do
-	notifies :reload, 'service[apache2]'
+	notifies :restart, 'service[apache2]'
+end
+
+template '/etc/mysql/my.cnf' do
+	notifies :restart, 'service[mysql]'
 end
 
 #
