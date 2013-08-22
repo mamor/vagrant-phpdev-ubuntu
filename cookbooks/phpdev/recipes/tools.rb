@@ -70,3 +70,18 @@ end
 link '/var/www/dbdocs' do
 	to '/home/vagrant/fuel-dbdocs/public'
 end
+
+#
+# install RockMongo
+#
+git '/home/vagrant/rockmongo' do
+	action :checkout
+	user 'vagrant'
+	group 'vagrant'
+	repository 'https://github.com/iwind/rockmongo.git'
+	reference 'master'
+end
+
+link '/var/www/rockmongo' do
+	to '/home/vagrant/rockmongo'
+end

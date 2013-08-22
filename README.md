@@ -5,9 +5,10 @@
 * PHP 5.4 http://php.net/
 * Apache 2.2 http://www.apache.org/
 * MySQL 5.5 http://www.mysql.com/
-* MongoDB http://www.mongodb.org/
-* Redis http://redis.io/
 * phpMyAdmin http://www.phpmyadmin.net/ http://localhost:8080/phpmyadmin/ (root/root)
+* MongoDB http://www.mongodb.org/
+* RockMongo http://rockmongo.com/ http://localhost:8080/rockmongo/ (admin/admin)
+* Redis http://redis.io/
 * node.js http://nodejs.org/
 * CoffeeScript http://coffeescript.org/
 * JSHint http://www.jshint.com/

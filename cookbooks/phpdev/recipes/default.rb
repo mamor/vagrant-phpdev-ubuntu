@@ -22,7 +22,7 @@ end
 #
 # install php and apache
 #
-%w{php5 php5-mysqlnd}.each do |p|
+%w{php5 php-pear php5-mysqlnd}.each do |p|
 	package p do
 		action :install
 	end
@@ -84,7 +84,15 @@ end
 execute 'git-config-user-name' do
 	command "sudo -u vagrant -H git config --global user.name \"#{node['git']['user']['name']}\""
 end
- 
+
+#
+# install packages by pecl
+#
+execute 'pecl-mongo' do
+	command 'pecl install mongo'
+	not_if {File.exists?('/usr/lib/php5/20100525/mongo.so')}
+end
+
 #
 # install packages by npm
 #
