@@ -97,6 +97,11 @@ git '/home/vagrant/phpredisadmin' do
 	reference 'master'
 end
 
+execute 'rm composer.lock' do
+	command 'rm /home/vagrant/phpredisadmin/composer.lock'
+	not_if {File.exists?('/home/vagrant/phpredisadmin/vendor')}
+end
+
 composer_project '/home/vagrant/phpredisadmin' do
 	action :install
 end
