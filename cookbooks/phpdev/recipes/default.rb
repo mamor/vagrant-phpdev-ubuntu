@@ -22,7 +22,7 @@ end
 #
 # install php and apache
 #
-%w{php5 php-pear php5-mysqlnd}.each do |p|
+%w{php5 php5-dev php-pear php5-mysqlnd}.each do |p|
 	package p do
 		action :install
 	end
@@ -177,6 +177,20 @@ end
 	rbenv_gem p do
 		action :install
 	end
+end
+
+#
+# install PhantomJS
+#
+execute 'phantomjs' do
+	command <<-CMD
+    wget https://phantomjs.googlecode.com/files/phantomjs-1.9.1-linux-x86_64.tar.bz2
+    tar jxvf phantomjs-1.9.1-linux-x86_64.tar.bz2
+    cp phantomjs-1.9.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
+    rm -r phantomjs-1.9.1-linux-x86_64
+    rm phantomjs-1.9.1-linux-x86_64.tar.bz2
+	CMD
+	not_if {File.exists?('/usr/local/bin/phantomjs')}
 end
 
 #
