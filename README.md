@@ -9,6 +9,7 @@
 * MongoDB http://www.mongodb.org/
 * RockMongo http://rockmongo.com/ http://localhost:8080/rockmongo/ (admin/admin)
 * Redis http://redis.io/
+* phpRedisAdmin https://github.com/ErikDubbelboer/phpRedisAdmin http://localhost:8080/phpredisadmin/
 * node.js http://nodejs.org/
 * CoffeeScript http://coffeescript.org/
 * JSHint http://www.jshint.com/
