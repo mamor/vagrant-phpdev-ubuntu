@@ -70,6 +70,16 @@ end
 	end
 end
 
+service 'mongodb' do
+	supports :status => true, :restart => true, :reload => true
+	action [:enable, :start]
+end
+
+service 'redis-server' do
+	supports :status => true, :restart => true, :reload => true
+	action [:enable, :start]
+end
+
 link '/var/www/phpmyadmin' do
 	to '/usr/share/phpmyadmin'
 end
