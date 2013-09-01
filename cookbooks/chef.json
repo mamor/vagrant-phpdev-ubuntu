@@ -1,16 +1,16 @@
 {
-	"mysql": {
-		"password": "root"
-	},
-	"php": {
-		"date": {
-			"timezone": "Asia/Tokyo"
-		}
-	},
-	"git": {
-		"user": {
-			"email": "vagrant@example.com",
-			"name": "vagrant"
-		}
-	}
+  "mysql": {
+    "password": "root"
+  },
+  "php": {
+    "date": {
+      "timezone": "Asia/Tokyo"
+    }
+  },
+  "git": {
+    "user": {
+      "email": "vagrant@example.com",
+      "name": "vagrant"
+    }
+  }
 }
