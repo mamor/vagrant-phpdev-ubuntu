@@ -134,7 +134,7 @@ end
 rbenv_global '2.0.0-p247' do
 end
 
-%w{fluentd jsduck serverspec compass heroku}.each do |p|
+%w{fluentd jsduck serverspec compass heroku af}.each do |p|
   rbenv_gem p do
     action :install
   end
