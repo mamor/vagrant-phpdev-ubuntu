@@ -22,7 +22,7 @@ end
 #
 # install php and apache
 #
-%w{php5 php5-dev php-pear php5-mysqlnd}.each do |p|
+%w{php5 php5-dev php-pear php5-mysqlnd php5-curl}.each do |p|
   package p do
     action :install
   end
