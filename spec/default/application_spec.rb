@@ -21,14 +21,14 @@ end
 # install xdebug
 #
 describe command('php -r "phpinfo();" | grep xdebug') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 #
 # install xhprof
 #
 describe command('php -r "phpinfo();" | grep xhprof') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe file('/var/www/xhprof') do
@@ -45,7 +45,7 @@ end
 end
 
 describe command('php -r "phpinfo();" | grep gearman') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 #
@@ -58,7 +58,7 @@ end
 end
 
 describe command('php -r "phpinfo();" | grep zmq') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 #
@@ -66,7 +66,7 @@ end
 #
 %w{heroku af}.each do |p|
   describe command('gem list | grep ' + p) do
-    it { should return_exit_status 0 }
+    its(:exit_status) { should eq 0 }
   end
 end
 

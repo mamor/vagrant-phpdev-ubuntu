@@ -36,7 +36,7 @@ end
 # set .bashrc and hosts by templates, set hostname
 #
 describe command('hostname') do
-  it { should return_stdout 'phpdev' }
+  its(:stdout) { should eq "phpdev\n" }
 end
 
 #
@@ -56,11 +56,11 @@ describe package('git') do
 end
 
 describe command('git config --global user.email') do
-  it { should return_stdout 'vagrant@phpdev' }
+  its(:stdout) { should eq "vagrant@phpdev\n" }
 end
 
 describe command('git config --global user.name') do
-  it { should return_stdout 'vagrant' }
+  its(:stdout) { should eq "vagrant\n" }
 end
 
 #
@@ -78,7 +78,7 @@ describe service('apache2') do
 end
 
 describe command('a2enmod rewrite') do
-  it { should return_stdout 'Module rewrite already enabled' }
+  its(:stdout) { should eq "Module rewrite already enabled\n" }
 end
 
 #
@@ -103,7 +103,7 @@ describe service('mysql') do
 end
 
 describe command('mysql -u root') do
-  it { should return_exit_status 1 }
+  its(:exit_status) { should eq 1 }
 end
 
 #
@@ -119,7 +119,7 @@ describe service('mongodb') do
 end
 
 describe command('php -r "phpinfo();" | grep mongo') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 #
@@ -130,11 +130,11 @@ describe file('/etc/init.d/td-agent') do
 end
 
 describe command('groups td-agent') do
-  it { should return_stdout 'td-agent : td-agent adm' }
+  its(:stdout) { should eq "td-agent : td-agent adm\n" }
 end
 
 describe command('/usr/lib/fluent/ruby/bin/fluent-gem list | grep fluent-plugin-mysqlslowquery') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe service('td-agent') do
@@ -151,7 +151,7 @@ end
 
 %w{yo gulp grunt-cli karma bower}.each do |p|
   describe command("npm -g ls 2> /dev/null | grep '^[├└]─[─┬] #{p}@'") do
-    it { should return_exit_status 0 }
+    its(:exit_status) { should eq 0 }
   end
 end
 
@@ -160,7 +160,7 @@ end
 #
 %w{compass}.each do |p|
   describe command('gem list | grep ' + p) do
-    it { should return_exit_status 0 }
+    its(:exit_status) { should eq 0 }
   end
 end
 

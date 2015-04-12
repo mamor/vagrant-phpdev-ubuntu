@@ -2,5 +2,6 @@
 share/
 cookbooks/default/recipes/custom.rb
 cookbooks/chef.json
+vendor/
 
 .idea/

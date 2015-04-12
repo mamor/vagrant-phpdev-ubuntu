@@ -71,6 +71,11 @@ access http://192.168.33.10/my_first_project/
 
 edit cookbooks/phpdev/recipes/custom.rb
 
+## Spec
+
+	$ bundle install
+	$ bundle exec rake spec
+
 ## License
 
 Copyright 2013, Mamoru Otsuka. Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
