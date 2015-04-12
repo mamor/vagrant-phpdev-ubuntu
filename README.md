@@ -2,7 +2,7 @@
 
 ## Features
 
-* Ubuntu 14.04 http://releases.ubuntu.com/14.04/
+* Ubuntu 14.10 http://releases.ubuntu.com/14.10/
 * PHP 5.5 http://php.net/
 * Apache 2.4 http://www.apache.org/
 * MySQL 5.5 http://www.mysql.com/
@@ -35,7 +35,7 @@
 
 	$ git clone --recursive https://github.com/mp-php/vagrant-phpdev-ubuntu.git
 	$ cd vagrant-phpdev-ubuntu/
-	$ vagrant up --provision # this could take a while...
+	$ vagrant up # this could take a while...
 
 #### Troubleshooting
 

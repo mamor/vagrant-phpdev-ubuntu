@@ -11,5 +11,5 @@
 # Your recipe here
 #
 #link '/var/www/your_project' do
-#	to '/share/your_project'
+#   to '/share/your_project'
 #end

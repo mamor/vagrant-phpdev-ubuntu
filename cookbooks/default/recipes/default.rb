@@ -88,12 +88,14 @@ end
 execute 'git-config-user-email' do
   user 'vagrant'
   group 'vagrant'
+  environment ({'HOME' => '/home/vagrant'})
   command "git config --global user.email '#{node['git']['user']['email']}'"
 end
 
 execute 'git-config-user-name' do
   user 'vagrant'
   group 'vagrant'
+  environment ({'HOME' => '/home/vagrant'})
   command "git config --global user.name '#{node['git']['user']['name']}'"
 end
 
